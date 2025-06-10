@@ -1,0 +1,24 @@
+name: 02 - Evento issue
+
+on:
+    push:
+        paths-ignore:
+            - 'README.md'
+    issues:
+        types: opened
+
+
+jobs:
+    issue-event:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Confirmación de evento issue
+          run: echo "Se ha abierto un issue en el repositorio"
+
+    push-event:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Confirmación de evento push
+          run: echo "Se ha hecho un push al repositorio"
