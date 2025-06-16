@@ -24,5 +24,6 @@ jobs:
               run: |
                 echo "Checking JSON files"
                 echo "Current directory: $(pwd)"
-                echo "Currenf files: $(ls)"
-                jsonlint-php package.json
+                echo "Currenf files:\n"
+                ls
+                jsonlint-php ../package.json
