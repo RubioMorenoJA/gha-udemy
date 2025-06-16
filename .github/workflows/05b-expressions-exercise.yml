@@ -10,13 +10,18 @@ jobs:
     runner-verifying:
         runs-on: ubuntu-latest
         steps:
+            - name: Prepare output
+              id: prepareOutput
+              run: |
+                mkdir ${{ runner.temp }}/output.log
+                date >> ${{ runner.temp }}/output.log
             - name: SO information
               id: soInfo
               run: |
                 echo "SO information:"
-                echo "- OS name: ${{ runner.os }}"
-                echo "- OS architecture: ${{ runner.arch }}"
+                echo "- OS name: ${{ runner.os }}" >> ${{ runner.temp }}/output.log
+                echo "- OS architecture: ${{ runner.arch }}" >> ${{ runner.temp }}/output.log
             - name: soInfo results
               run: |
                 echo "Steps: ${{ toJson(steps) }}"
-                echo "Results: ${{ steps.soInfo.outputs.result }}"
+                echo "Results: $(cat ${{ runner.temp }}/output.log)"
