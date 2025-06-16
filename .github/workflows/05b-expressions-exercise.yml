@@ -14,8 +14,8 @@ jobs:
               id: soInfo
               run: |
                 echo "SO information:"
-                echo "\t OS name: ${{ runner.os }}"
-                echo "\t OS architecture: ${{ runner.arch }}"
+                echo "> OS name: ${{ runner.os }}" >> $GITHUB_OUTPUT
+                echo "> OS architecture: ${{ runner.arch }}" >> $GITHUB_OUTPUT
             - name: Show SO information
               run: |
                 echo "Steps: ${{ toJson(steps) }}"
