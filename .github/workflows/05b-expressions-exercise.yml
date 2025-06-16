@@ -16,7 +16,7 @@ jobs:
             - name: SO information
               id: soInfo
               run: |
-                echo "SO information:"
+                echo "SO information:" >> ${{ runner.temp }}/output.log
                 echo "- OS name: ${{ runner.os }}" >> ${{ runner.temp }}/output.log
                 echo "- OS architecture: ${{ runner.arch }}" >> ${{ runner.temp }}/output.log
             - name: soInfo results
