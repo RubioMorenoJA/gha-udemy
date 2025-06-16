@@ -10,13 +10,13 @@ jobs:
     runner-verifying:
         runs-on: ubuntu-latest
         steps:
-            - name: Get SO information
+            - name: SO information
               id: soInfo
               run: |
                 echo "SO information:"
-                echo "> OS name: ${{ runner.os }}" >> $GITHUB_OUTPUT
-                echo "> OS architecture: ${{ runner.arch }}" >> $GITHUB_OUTPUT
-            - name: Show SO information
+                echo "- OS name: ${{ runner.os }}"
+                echo "- OS architecture: ${{ runner.arch }}"
+            - name: soInfo results
               run: |
                 echo "Steps: ${{ toJson(steps) }}"
                 echo "Results: ${{ steps.soInfo.outputs.result }}"
