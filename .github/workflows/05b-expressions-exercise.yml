@@ -13,7 +13,7 @@ jobs:
             - name: Prepare output
               id: prepareOutput
               run: |
-                mkdir ${{ runner.temp }}/output.log
+                mkdir ${{ runner.temp }}
                 date >> ${{ runner.temp }}/output.log
             - name: SO information
               id: soInfo
