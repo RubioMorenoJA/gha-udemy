@@ -9,9 +9,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Check node.js version
-            shell: bash
-            run: |
-              echo "Npm version: $(npm --version)"
+              shell: bash
+              run: |
+                echo "Npm version: $(npm --version)"
 
             - name: Set libraries
               shell: bash
