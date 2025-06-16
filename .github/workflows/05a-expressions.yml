@@ -30,4 +30,4 @@ jobs:
                 echo "Steps: ${{ toJson(steps) }}"
                 echo "Step Operators conclusion: ${{ steps.operators.conclusion }}"
                 echo "Step Operators outputs result: ${{ steps.operators.outputs.result }}"
-                echo "Step all conclusions: ${{ join(steps.*.conclusion, '\n') }}"
+                echo "Step all conclusions: ${{ join(steps.*.conclusion, '\\n') }}"
