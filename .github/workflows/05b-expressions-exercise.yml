@@ -12,9 +12,7 @@ jobs:
         steps:
             - name: Prepare output
               id: prepareOutput
-              run: |
-                mkdir ${{ runner.temp }}
-                date >> ${{ runner.temp }}/output.log
+              run: date >> ${{ runner.temp }}/output.log
             - name: SO information
               id: soInfo
               run: |
