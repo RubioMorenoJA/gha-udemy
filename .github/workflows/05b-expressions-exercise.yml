@@ -1,0 +1,20 @@
+name: 05b - Expressions exercise
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+  workflow_dispatch:
+jobs:
+    runner-verifying:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get SO information
+              id: soInfo
+              run: |
+                echo "SO information:"
+                echo "\t OS name: ${{ runner.os }}" >> $GITHUB_STEPS_OUTPUT
+                echo "\t OS architecture: ${{ runner.arch }}" >> $GITHUB_STEPS_OUTPUT
+            - name: Show SO information
+              run: echo "${{ steps.soInfo.outputs }}"
