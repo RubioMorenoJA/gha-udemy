@@ -17,4 +17,4 @@ jobs:
                 echo "\t OS name: ${{ runner.os }}"
                 echo "\t OS architecture: ${{ runner.arch }}"
             - name: Show SO information
-              run: echo "${{ steps.soInfo.outputs }}"
+              run: echo "${{ steps.soInfo.outputs.result }}"
