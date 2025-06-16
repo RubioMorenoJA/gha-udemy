@@ -1,0 +1,33 @@
+name: 05a - Expresiones
+on:
+    push:
+        branches:
+        - main
+        paths-ignore:
+        - 'README.md'
+    workflow_dispatch:
+jobs:
+    running-expressions:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Operators
+              id: operators
+              run: echo "${{ 2 > 1 }}"
+
+            - name: Github inspector
+              id: githubContext
+              run: echo "${{ toJson(github) }}"
+
+            - name: Event and actor
+              id: actorEvent
+              run: |
+                echo "Actor: ${{ github.actor }}"
+                echo "Event: ${{ github.event_name }}"
+
+            - name: Object filter
+              id: stepContext
+              run: |
+                echo "Steps: ${{ toJson(steps) }}"
+                echo "Step Operators conclusion: ${{ steps.operators.conclusion }}"
+                echo "Step Operators outputs result: ${{ steps.operators.outputs.result }}"
+                echo "Step all conclusions: ${{ join(steps.*.conclusion, '\n') }}"
