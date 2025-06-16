@@ -21,4 +21,8 @@ jobs:
 
             - name: Check JSON files
               shell: bash
-              run: jsonlint-php package.json
+              run: |
+                echo "Checking JSON files"
+                echo "Current directory: $(pwd)"
+                echo "Currenf files: $(ls -la)"
+                jsonlint-php package.json
