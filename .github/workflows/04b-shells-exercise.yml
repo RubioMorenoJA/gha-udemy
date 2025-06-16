@@ -4,6 +4,7 @@ on:
     branches:
     paths-ignore:
       - 'README.md'
+  workflow_dispatch:
 jobs:
     running-lint-json:
         runs-on: ubuntu-latest
@@ -24,7 +25,4 @@ jobs:
               run: |
                 echo "Checking JSON files"
                 echo "Current directory: $(pwd)"
-                echo "Current files:"
-                ls -la >> $GITHUB_STEP_SUMMARY
-                cat $GITHUB_STEP_SUMMARY
                 jsonlint-php ../package.json
