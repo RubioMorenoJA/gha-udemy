@@ -1,0 +1,21 @@
+name: 04a Shells
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+jobs:
+
+    running-shells:
+
+        runs-on: ubuntu-latest
+        steps:
+            - name: Bash shell
+              shell: bash
+              run: echo $0
+            - name: sh shell
+              shell: sh
+              run: echo $0
+            - name: By default
+              run: echo $0
