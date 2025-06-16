@@ -9,10 +9,14 @@ jobs:
     running-lint-json:
         runs-on: ubuntu-latest
         steps:
-            - name: Check node.js version
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
+            - name: Check node.js and npm version
               shell: bash
               run: |
                 echo "Npm version: $(npm --version)"
+                echo "Node.js version: $(node --version)"
 
             - name: Set libraries
               shell: bash
