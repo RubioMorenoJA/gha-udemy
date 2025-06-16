@@ -1,0 +1,24 @@
+name: 04b Shells exercise
+on: 
+  push:
+    branches:
+    paths-ignore:
+      - 'README.md'
+jobs:
+    running-lint-json:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check node.js version
+            shell: bash
+            run: |
+              echo "Npm version: $(npm --version)"
+
+            - name: Set libraries
+              shell: bash
+              run: |
+                sudo apt-get update -y
+                sudo apt-get install jsonlint -y
+
+            - name: Check JSON files
+              shell: bash
+              run: jsonlint-php package.json
