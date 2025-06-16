@@ -24,6 +24,7 @@ jobs:
               run: |
                 echo "Checking JSON files"
                 echo "Current directory: $(pwd)"
-                echo "Currenf files:\n"
-                ls
+                echo "Current files:"
+                ls -la >> $GITHUB_STEP_SUMMARY
+                cat $GITHUB_STEP_SUMMARY
                 jsonlint-php ../package.json
