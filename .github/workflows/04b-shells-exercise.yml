@@ -25,4 +25,4 @@ jobs:
                 echo "Checking JSON files"
                 echo "Current directory: $(pwd)"
                 echo "Currenf files: $(ls -la)" >> $GITHUB_STEP_SUMMARY
-                jsonlint-php /home/GHA-UDEMY/package.json
+                jsonlint-php ./package.json
