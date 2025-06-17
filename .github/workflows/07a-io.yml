@@ -38,7 +38,7 @@ jobs:
               run: |
                 echo "dice1=$((1 + RANDOM % 6))" >> $GITHUB_ENV
                 echo "dice2=$((1 + RANDOM % 6))" >> $GITHUB_ENV
-                echo "dices=$(($dice1+$dice2))" >> $GITHUB_ENV
+                echo "dices=$(( $dice1 + $dice2 ))" >> $GITHUB_ENV
             - name: Show rolled dices
               run: |
                 echo "Dice 1: ${{ env.dice1 }}"
