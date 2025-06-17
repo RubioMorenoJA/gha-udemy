@@ -32,16 +32,18 @@ jobs:
               id: rollTwoDices
               shell: bash
               run: |
-                echo "dice2=$((1 + RANDOM % 6))" >> $GITHUB_ENV
-                echo "${{ env.dice2 }}"
+                dice2=$((1 + RANDOM % 6))
+                echo "dice2=$dice2" >> $GITHUB_ENV
+                echo "$dice2"
             - name: Save rolled dices
               run: |
                 echo "# ROLL DICES GAME" >> $GITHUB_STEP_SUMMARY
                 echo "### Roll dices result:" >> $GITHUB_STEP_SUMMARY
-                echo "- Dice 1: ${{ env.dice1 }}"
+                echo "- Dice 1: ${{ env.dice1 }}" >> $GITHUB_STEP_SUMMARY
                 if [[ ${{ inputs.dices-order == 'two' }} ]]; then
                   echo "- Dice 2: ${{ env.dice2 }}" >> $GITHUB_STEP_SUMMARY
                 fi
+                echo "Saved rolled dices in step summary."
             - name: Check results
               run: |
                 echo "Steps: ${{ toJson(steps) }}"
