@@ -37,7 +37,7 @@ jobs:
                 echo "$dice2"
             - name: Save rolled dices
               run: |
-                echo "# ROLL DICES GAME" >> $GITHUB_STEP_SUMMARY
+                echo "# :game_die: ROLL DICES GAME" >> $GITHUB_STEP_SUMMARY
                 echo "### Roll dices result:" >> $GITHUB_STEP_SUMMARY
                 echo "- Dice 1: ${{ steps.rollOneDices.outputs.dice1 }}" >> $GITHUB_STEP_SUMMARY
                 if [[ ${{ inputs.dices-order == 'two' }} ]]; then
