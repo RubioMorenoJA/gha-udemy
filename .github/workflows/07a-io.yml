@@ -32,7 +32,7 @@ jobs:
               if: ${{ inputs.dices-order == 'two' }}
               run: |
                 echo "dice2=$((1 + RANDOM % 6))" >> $GITHUB_ENV
-            - name: Roll one dice
+            - name: Roll both dices
               id: rollBothDices
               if: ${{ inputs.dices-order == 'both' }}
               run: |
