@@ -39,7 +39,6 @@ jobs:
                 echo "### Roll dices result:" >> $GITHUB_STEP_SUMMARY
                 echo "- Dice 1: ${{ env.dice1 }}"
                 echo "- Dice 2: ${{ env.dice2 }}"
-            - name: Show rolled dices
     show-dices-result:
         runs-on: ubuntu-latest
         needs: roll-dices
