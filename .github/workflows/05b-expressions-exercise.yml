@@ -23,8 +23,3 @@ jobs:
               run: |
                 echo "Steps: ${{ toJson(steps) }}"
                 echo "Results: $(cat ${{ runner.temp }}/output.log)"
-    
-    exercise-solution:
-        runs-on: ubuntu-latest
-        steps:
-            - name: 
