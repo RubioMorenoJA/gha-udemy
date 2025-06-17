@@ -21,7 +21,6 @@ jobs:
               run: |
                 echo "Dices order: ${{ inputs.dices-order }}"
             - name: Roll one dice
-              if: ${{ inputs.dices-order == 'one' }}
               id: rollOneDices
               shell: bash
               run: |
@@ -31,23 +30,29 @@ jobs:
               id: rollTwoDices
               shell: bash
               run: |
-                echo "dice1=$((1 + RANDOM % 6))" >> $GITHUB_ENV
                 echo "dice2=$((1 + RANDOM % 6))" >> $GITHUB_ENV
             - name: Save rolled dices
               run: |
                 echo "# ROLL DICES GAME" >> $GITHUB_STEP_SUMMARY
                 echo "### Roll dices result:" >> $GITHUB_STEP_SUMMARY
                 echo "- Dice 1: ${{ env.dice1 }}"
-                echo "- Dice 2: ${{ env.dice2 }}"
+                if [[ ${{ inputs.dices-order == 'two' }} ]]; then
+                  echo "- Dice 2: ${{ env.dice2 }}" >> $GITHUB_STEP_SUMMARY
+                fi
     show-dices-result:
         runs-on: ubuntu-latest
         needs: roll-dices
         steps:
             - name: Show result
               run: |
-                echo "Dice 1: ${{ needs.roll-dices.outputs.dice1 }}"
-                echo "Dice 2: ${{ needs.roll-dices.outputs.dice2 }}"
-                echo "Dices: $(( ${{ needs.roll-dices.outputs.dice1 }} + ${{ needs.roll-dices.outputs.dice2 }} ))"
+                echo "Dice 1: ${{ needs.roll-dices.env.dice1 }}"
+                if [[ ${{ inputs.dices-order == 'two' }} ]]; then
+                    echo "Dice 2: ${{ needs.roll-dices.env.dice2 }}"
+                    echo "Dices: $(( ${{ needs.roll-dices.env.dice1 }} + ${{ needs.roll-dices.env.dice2 }} ))"
+                else
+                    echo "Dices: ${{ needs.roll-dices.env.dice1 }}"
+                fi
+                
             - name: Show result in summary
               run: |
                 echo "$GITHUB_STEP_SUMMARY"
