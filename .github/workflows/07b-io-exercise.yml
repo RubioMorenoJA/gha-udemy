@@ -1,0 +1,54 @@
+name: 07b - Input/Output exercise
+on:
+  workflow_dispatch:
+    inputs:
+      dices-order:
+        description: 'Order of the dices'
+        required: false
+        default: one
+        type: choice
+        options:
+          - one
+          - two
+jobs:
+    roll-dices:
+        runs-on: ubuntu-latest
+        outputs:
+            dice1: ${{ steps.rollOneDices.outputs.dice1 }}
+            dice2: ${{ steps.rollTwoDices.outputs.dice2 }}
+        steps:
+            - name: Order of the dices.
+              run: |
+                echo "Dices order: ${{ inputs.dices-order }}"
+            - name: Roll one dice
+              if: ${{ inputs.dices-order == 'one' }}
+              id: rollOneDices
+              shell: bash
+              run: |
+                echo "dice1=$((1 + RANDOM % 6))" >> $GITHUB_ENV
+            - name: Roll two dices
+              if: ${{ inputs.dices-order == 'two' }}
+              id: rollTwoDices
+              shell: bash
+              run: |
+                echo "dice1=$((1 + RANDOM % 6))" >> $GITHUB_ENV
+                echo "dice2=$((1 + RANDOM % 6))" >> $GITHUB_ENV
+            - name: Save rolled dices
+              run: |
+                echo "# ROLL DICES GAME" >> $GITHUB_STEP_SUMMARY
+                echo "### Roll dices result:" >> $GITHUB_STEP_SUMMARY
+                echo "- Dice 1: ${{ env.dice1 }}"
+                echo "- Dice 2: ${{ env.dice2 }}"
+            - name: Show rolled dices
+    show-dices-result:
+        runs-on: ubuntu-latest
+        needs: roll-dices
+        steps:
+            - name: Show result
+              run: |
+                echo "Dice 1: ${{ needs.roll-dices.outputs.dice1 }}"
+                echo "Dice 2: ${{ needs.roll-dices.outputs.dice2 }}"
+                echo "Dices: $(( ${{ needs.roll-dices.outputs.dice1 }} + ${{ needs.roll-dices.outputs.dice2 }} ))"
+            - name: Show result in summary
+              run: |
+                echo "$GITHUB_STEP_SUMMARY"
