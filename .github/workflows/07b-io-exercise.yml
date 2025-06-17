@@ -25,12 +25,14 @@ jobs:
               shell: bash
               run: |
                 echo "dice1=$((1 + RANDOM % 6))" >> $GITHUB_ENV
+                echo "${{ env.dice1 }}"
             - name: Roll two dices
               if: ${{ inputs.dices-order == 'two' }}
               id: rollTwoDices
               shell: bash
               run: |
                 echo "dice2=$((1 + RANDOM % 6))" >> $GITHUB_ENV
+                echo "${{ env.dice2 }}"
             - name: Save rolled dices
               run: |
                 echo "# ROLL DICES GAME" >> $GITHUB_STEP_SUMMARY
