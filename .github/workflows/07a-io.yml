@@ -1,0 +1,47 @@
+name: 07a - Input/Output
+on:
+  workflow_dispatch:
+    inputs:
+        dices-order:
+            description: 'Order of the dices'
+            required: false
+            default: two
+            type: choice
+            options:
+                - one
+                - two
+                - both
+jobs:
+    roll-dices:
+        runs-on: ubuntu-latest
+        outputs:
+            dice1: ${{ steps.rollDiceOne.outputs.dice1 }}
+            dice2: ${{ steps.rollDiceTwo.outputs.dice2 }}
+            dices: ${{ steps.rollBothDices.outputs.dices }}
+        steps:
+            - name: Order of the dices.
+              run: |
+                echo "Dices order: ${{ inputs.dices-order }}"
+            - name: Roll one dice
+              id: rollDiceOne
+              if: ${{ inputs.dices-order == 'one' }}
+              run: |
+                echo "dice1=$((1 + RANDOM % 6))" >> $GITHUB_ENV
+            - name: Roll one dice
+              id: rollDiceTwo
+              if: ${{ inputs.dices-order == 'two' }}
+              run: |
+                echo "dice2=$((1 + RANDOM % 6))" >> $GITHUB_ENV
+            - name: Roll one dice
+              id: rollBothDices
+              if: ${{ inputs.dices-order == 'both' }}
+              run: |
+                echo "dice1=$((1 + RANDOM % 6))" >> $GITHUB_ENV
+                echo "dice2=$((1 + RANDOM % 6))" >> $GITHUB_ENV
+                echo "dices=$(($dice1+$dice2))" >> $GITHUB_ENV
+            - name: Show rolled dices
+              run: |
+                echo "Dice 1: ${{ env.dice1 }}"
+                echo "Dice 2: ${{ env.dice2 }}"
+                echo "Dices: ${{ env.dices }}"
+                
