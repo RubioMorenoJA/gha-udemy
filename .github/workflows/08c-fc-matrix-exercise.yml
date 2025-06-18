@@ -1,4 +1,4 @@
-name: 08a - Flow control - Matrix
+name: 08c - Flow control - Matrix exercise
 on:
     push:
     workflow_dispatch:
