@@ -1,0 +1,48 @@
+name: 08a - Flow control - Matrix
+on:
+    push:
+    workflow_dispatch:
+jobs:
+    build:
+        strategy:
+            matrix:
+                node-version: [16, 18]
+        outputs:
+            node-version: ${{ matrix.node-version }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: ${{ matrix.node-version }}
+
+            - name: Npm configuration
+              run: npm ci
+
+            - name: Run tests
+              run: npm test
+
+            - name: Force failure
+              run: exit 1
+
+            - name: Success state checking
+              if: ${{ success() }}
+              run: echo "All steps completed successfully"
+
+            - name: Failure state checking
+              if: ${{ failure() }}
+              run: echo "One or more steps failed"
+
+            - name: Always state checking
+              if: ${{ always() }} 
+              run: echo "This step always runs regardless of previous step outcomes"
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploy
+              run: |
+                echo "System deployed successfully"
