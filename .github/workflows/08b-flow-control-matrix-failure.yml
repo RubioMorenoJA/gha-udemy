@@ -23,8 +23,8 @@ jobs:
 
             - name: Check failure
               if: ${{ matrix.os == 'ubuntu-24.04' && matrix.node-version == '16' }}
-              continue-on-error: true
               run: exit 1
+              continue-on-error: true
 
             - name: Npm configuration
               run: npm ci
