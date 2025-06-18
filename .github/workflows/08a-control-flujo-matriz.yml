@@ -1,0 +1,37 @@
+name: 08a - Flow control - Matrix
+on:
+    push:
+    workflow_dispatch:
+jobs:
+    build:
+        strategy:
+            matrix:
+                os: [ubuntu-22-04, ubuntu-20-04]
+                node-version: [16, 18]
+        outputs:
+            os: ${{ matrix.os }}
+            node-version: ${{ matrix.node-version }}
+        runs-on: ${{ matrix.os }}
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: ${{ matrix.node-version }}
+
+            - name: Npm configuration
+              run: npm ci
+
+            - name: Run tests
+              run: npm test
+
+    deploy:
+        needs: build
+        runs-on: ${{ needs.build.outputs.os }}
+        steps:
+            - name: Show matrix
+              run: |
+                echo "OS: ${{ needs.build.outputs.os }}"
+                echo "Node version: ${{ needs.build.outputs.node-version }}"
