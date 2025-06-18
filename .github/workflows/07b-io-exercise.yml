@@ -35,18 +35,23 @@ jobs:
                 dice2=$((1 + RANDOM % 6))
                 echo "dice2=$dice2" >> $GITHUB_OUTPUT
                 echo "$dice2"
-            - name: Save rolled dices
-              run: |
-                echo "# :game_die: ROLL DICES GAME" >> $GITHUB_STEP_SUMMARY
-                echo "### Roll dices result:" >> $GITHUB_STEP_SUMMARY
-                echo "- Dice 1: ${{ steps.rollOneDices.outputs.dice1 }}" >> $GITHUB_STEP_SUMMARY
-                if [[ ${{ inputs.dices-order == 'two' }} ]]; then
-                  echo "- Dice 2: ${{ steps.rollTwoDices.outputs.dice2 }}" >> $GITHUB_STEP_SUMMARY
-                fi
-                echo "Saved rolled dices in step summary."
             - name: Check results
               run: |
                 echo "Steps: ${{ toJson(steps) }}"
+    perform-dices-result:
+      needs: roll-dices
+      runs-on: ubuntu-latest
+      steps:
+        - name: Save rolled dices
+          run: |
+            echo "# :game_die: ROLL DICES GAME" >> $GITHUB_STEP_SUMMARY
+            echo "### Roll dices result:" >> $GITHUB_STEP_SUMMARY
+            echo "- Dice 1: ${{ steps.rollOneDices.outputs.dice1 }}" >> $GITHUB_STEP_SUMMARY
+            if [[ ${{ inputs.dices-order == 'two' }} ]]; then
+              echo "- Dice 2: ${{ steps.rollTwoDices.outputs.dice2 }}" >> $GITHUB_STEP_SUMMARY
+            fi
+            echo "Saved rolled dices in step summary."
+        - name: Save rolle dice 1
     show-dices-result:
         runs-on: ubuntu-latest
         needs: roll-dices
