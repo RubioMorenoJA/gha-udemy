@@ -10,6 +10,7 @@ jobs:
         outputs:
             node-version: ${{ matrix.node-version }}
         runs-on: ubuntu-latest
+        continue-on-error: true
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
