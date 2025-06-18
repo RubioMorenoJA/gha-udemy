@@ -49,11 +49,11 @@ jobs:
             echo "Saved rolled dices in step summary."
         - name: Save rolle dice 1
           run: |
-            echo "- Dice 1: ${{ steps.rollOneDices.outputs.dice1 }}" >> $GITHUB_STEP_SUMMARY
+            echo "- Dice 1: ${{ needs.roll-dices.outputs.dice1 }}" >> $GITHUB_STEP_SUMMARY
         - name: Save rolle dice 2
           if: ${{ inputs.dices-order == 'two' }}
           run: |
-            echo "- Dice 2: ${{ steps.rollTwoDices.outputs.dice2 }}" >> $GITHUB_STEP_SUMMARY
+            echo "- Dice 2: ${{ needs.roll-dices.outputs.dice2 }}" >> $GITHUB_STEP_SUMMARY
     show-dices-result:
         runs-on: ubuntu-latest
         needs: roll-dices
