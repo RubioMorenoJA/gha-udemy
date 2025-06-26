@@ -1,0 +1,49 @@
+name: 09b - Artifacts
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+  workflow_dispatch:
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+            - name: Set node version
+              uses: actions/setup-node@v4
+              with:
+                node-version: 18
+            - name: Install dependencies
+              run: npm ci
+            - name: Run tests
+              run: npm test
+            - name: Upload test results
+              uses: actions/upload-artifact@v4
+              with:
+                name: test-results
+                path: |
+                  coverage/**/index.html
+    resume:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Download test results
+              uses: actions/download-artifact@v4
+              with:
+                name: test-results
+            - name: Display test results
+              run: |
+                echo "Test results downloaded. You can view them in the artifacts section of the workflow run."
+                ls -l coverage/**/index.html
+            - name: HTML to Markdown
+              id: html2md
+              uses: rknj/html2markdown@b8edf4ce2aa1309ec7228191634df9b4760d4b07
+              with:
+                html-file: "lcov-report/index.html"
+            - name: Display Markdown
+              run: |
+                echo "Markdown version of the test results:"
+                echo "${{ steps.html2md.outputs.markdown-file }}"
+              
