@@ -1,0 +1,38 @@
+name: 11b[called] Reusable workflow Exercise
+on:
+    workflow_call:
+        inputs:
+            node-version:
+                required: true
+                type: number
+                default: 18
+                description: 'Node versions to be used in the execution'
+        outputs:
+            results:
+                value: ${{ jobs.execution.outputs.results }}
+                description: 'Results of node version execution'
+jobs:
+  execution:
+    outputs:
+      results: ${{ steps.show-results.outputs.result }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Npm configuration
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Show results
+        id: show-results
+        run: |
+          echo "Node version: ${{ inputs.node-version }}"
+          echo "result=Node version ${{ inputs.node-version }} executed" >> "$GITHUB_OUTPUT"

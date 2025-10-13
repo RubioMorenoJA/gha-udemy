@@ -1,0 +1,27 @@
+name: 11b[calling] Reusable workflow Exercise
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    paths-ignore:
+      - 'README.md'
+
+jobs:
+    create-execution-matrix:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [16, 18, 20]
+        steps:
+            - name: Show version
+              run: |
+                echo "Node version: ${{ matrix.node-version }}"
+            - name: Call Node.js execution workflow
+              id: call-node-execution
+              uses: ./.github/workflows/11b-called-reusable-wf-exercise.yml
+              with:
+                node-version: ${{ matrix.node-version }}
+            - name: Show results
+              run: |
+                echo "Results: ${{ steps.call-node-execution.outputs.results }}"
