@@ -1,0 +1,24 @@
+name: 11b[calling] Reusable workflow Exercise
+on:
+  workflow_dispatch:
+
+jobs:
+    create-execution-matrix:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [16, 18, 20]
+        steps:
+            - name: Show version
+              run: |
+                echo "Node version: ${{ matrix.node-version }}"
+            - name: Checkout code
+              uses: actions/checkout@v4
+            - name: Call Node.js execution workflow (this way needs and action.yml to work instead of workflow_call)
+              id: call-node-execution
+              uses: ./.github/actions/11b-actions/
+              with:
+                node-version: ${{ matrix.node-version }}
+            - name: Show results
+              run: |
+                echo "Results: ${{ steps.call-node-execution.outputs.results }}"
