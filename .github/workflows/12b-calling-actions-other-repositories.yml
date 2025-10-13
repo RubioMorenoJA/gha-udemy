@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Call One Dice Throwing Action
         id: call_dice_action
-        uses: gha-composite-action/.github/actions/12b-composite-actions/
+        uses: RubioMorenoJA/gha-composite-action@v1
         with:
             dice-order: one
       - name: Show dice 1 results
