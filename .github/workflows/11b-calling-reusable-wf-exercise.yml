@@ -17,9 +17,9 @@ jobs:
             - name: Show version
               run: |
                 echo "Node version: ${{ matrix.node-version }}"
-            - name: Call Node.js execution workflow
+            - name: Call Node.js execution workflow (this way needs and action.yml to work instead of workflow_call)
               id: call-node-execution
-              uses: ./.github/workflows/11b-called-reusable-wf-exercise.yml
+              uses: ./.github/actions/11b-actions.yml
               with:
                 node-version: ${{ matrix.node-version }}
             - name: Show results

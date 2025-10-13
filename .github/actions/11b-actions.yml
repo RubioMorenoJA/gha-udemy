@@ -1,0 +1,40 @@
+name: 11b actions
+description: 'GitHub Actions for the course GitHub Actions: Continuous Integration with Node.js'
+inputs:
+  node-version:
+    description: 'Node version to be used in the execution'
+    required: true
+    default: 18
+    type: number
+outputs:
+  result_title: ${{ steps.show-results.outputs.result_title }}
+  results: ${{ steps.set-action-output.outputs.results }}
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Npm configuration
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+
+    - name: Show results
+      id: show-results
+      run: |
+        echo "Node version: ${{ inputs.node-version }}"
+        echo "result_title=Node version ${{ inputs.node-version }} executed" >> "$GITHUB_OUTPUT"
+      # Capture the output to set it as an action output
+      # This is needed because composite actions cannot directly set outputs from steps
+      # So we use a workaround by writing to a temporary file and then reading it back
+    - name: Set action output
+      run: echo "results=$(cat $GITHUB_OUTPUT | grep result | cut -d '=' -f2-)" >> "$GITHUB_OUTPUT"
+      # Set the action output to the results from the previous step
+      # This allows the calling workflow to access the results
