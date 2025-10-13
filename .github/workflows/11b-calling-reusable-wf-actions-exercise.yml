@@ -1,4 +1,4 @@
-name: 11b[calling] Reusable workflow Exercise
+name: 11b[calling] Reusable workflow Actions Exercise
 on:
   workflow_dispatch:
 
