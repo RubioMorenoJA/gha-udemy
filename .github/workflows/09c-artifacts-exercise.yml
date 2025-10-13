@@ -49,5 +49,5 @@ jobs:
             - name: Display Markdown
               run: |
                 echo "Markdown version of the test results:"
-                echo "$(cat results.md)"
+                cat results.md
               

@@ -1,0 +1,20 @@
+name: 10a - Environments and deployments
+on:
+  push:
+    branches:
+      - main
+      - release/**
+    paths-ignore:
+      - 'README.md'
+  workflow_dispatch:
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        environment: pro
+        steps:
+            - name: Verify variable
+              run: |
+                echo "MY_VAR: ${{ vars.MY_VAR }}"
+            - name: Verify secret
+              run: |
+                echo "MY_SECRET: ${{ secrets.MY_SECRET }}"
