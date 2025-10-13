@@ -8,16 +8,16 @@ on:
         default: two
         description: 'Order of the dice to be thrown (one or two)'
     outputs:
-      dado1:
-        value: ${{ jobs.tirada.outputs.dado1 }}
-      dado2:
-        value: ${{ jobs.tirada.outputs.dado2 }}
+      dice1:
+        value: ${{ jobs.tirada.outputs.dice1 }}
+      dice2:
+        value: ${{ jobs.tirada.outputs.dice2 }}
 
 jobs:
   tirada:
     outputs:
-      dado1: ${{ steps.throw_dice_1.outputs.result }}
-      dado2: ${{ steps.throw_dice_2.outputs.result }}
+      dice1: ${{ steps.throw_dice_1.outputs.result }}
+      dice2: ${{ steps.throw_dice_2.outputs.result }}
     runs-on: ubuntu-latest
     steps:
       - name: Dice Roll Info

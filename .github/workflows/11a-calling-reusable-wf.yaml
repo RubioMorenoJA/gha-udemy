@@ -16,7 +16,10 @@ jobs:
         runs-on: ubuntu-latest
         needs: call-dice-throwing
         steps:
-            - name: Show results
+            - name: Show dice 1 results
               run: |
-                echo "Dice 1 result: ${{ needs.call-dice-throwing.outputs.dado1 }}"
-                echo "Dice 2 result: ${{ needs.call-dice-throwing.outputs.dado2 }}"
+                echo "Dice 1 result: ${{ needs.call-dice-throwing.outputs.dice1 }}"
+            - name: Show dice 2 results
+              if: ${{ needs.call-dice-throwing.outputs.dice2 }}
+              run: |
+                echo "Dice 2 result: ${{ needs.call-dice-throwing.outputs.dice2 }}"
