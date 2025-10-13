@@ -34,3 +34,6 @@ jobs:
       - name: Show dice 1 results
         run: |
           echo "Dice 1 result: ${{ steps.call_dice_action.outputs.dice1 }}"
+      - name: Show dice 2 results
+        run: |
+          echo "Dice 2 result: ${{ steps.call_dice_action.outputs.dice2 }}"
