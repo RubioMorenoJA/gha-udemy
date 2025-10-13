@@ -1,0 +1,32 @@
+name: 12b [custom] Action Exercise
+description: A workflow calling a custom action with dices throwing exercise
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    paths-ignore:
+      - 'README.md'
+jobs:
+  call-one-dice-throwing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call One Dice Throwing Action
+        id: call_dice_action
+        uses: ./.github/actions/12b-actions
+        with:
+            dice-order: one
+      - name: Show dice 1 results
+        run: |
+          echo "Dice 1 result: ${{ steps.call_dice_action.outputs.dice1 }}"
+  call-two-dices-throwing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call One Dice Throwing Action
+        id: call_dice_action
+        uses: ./.github/actions/12b-actions
+        with:
+            dice-order: two
+      - name: Show dice 1 results
+        run: |
+          echo "Dice 1 result: ${{ steps.call_dice_action.outputs.dice1 }}"

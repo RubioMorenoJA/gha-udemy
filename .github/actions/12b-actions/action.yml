@@ -1,0 +1,26 @@
+name: 12b [custom] Action Exercise
+description: An action with dices throwing exercise
+inputs:
+  dice-order:
+    description: 'Order of the dice to be thrown (one or two)'
+    required: true
+    default: two
+    type: string
+outputs:
+  dice1: ${{ steps.throw_dice_1.outputs.dice }}
+  dice2: ${{ steps.throw_dice_2.outputs.dice }}
+runs:
+  using: 'composite'
+  steps:
+    - name: Dice Roll Info
+      run: |
+        echo "Rolling ${{ inputs.dice-order }} dice(s)"
+    - name: Throw Dice 1
+      id: throw_dice_1
+      run: |
+        echo "dice=$((1 + $RANDOM % 6))" >> "$GITHUB_OUTPUT"
+    - name: Throw Dice 2
+      if: ${{ inputs.dice-order == 'two' }}
+      id: throw_dice_2
+      run: |
+        echo "dice=$((1 + $RANDOM % 6))" >> "$GITHUB_OUTPUT"
