@@ -1,5 +1,8 @@
 name: 12b [custom] Action Exercise - actions from other repositories
-description: A workflow calling a custom action with dices throwing exercise
+description: |
+  A workflow calling a custom action with dices throwing exercise.
+  The repository containing the action is different from the one containing this workflow.
+  The repository containing the action must be public.
 on:
   workflow_dispatch:
   push:
@@ -28,7 +31,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Call One Dice Throwing Action
         id: call_dice_action
-        uses: RubioMorenoJA/gha-composite-action/.github/actions/12b-composite-actions@v1
+        uses: RubioMorenoJA/gha-composite-actions/.github/actions/12b-composite-actions@v1
         with:
             dice-order: two
       - name: Show dice 1 results
