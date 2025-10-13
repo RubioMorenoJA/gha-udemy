@@ -1,4 +1,4 @@
-name: 12b [custom] Action Exercise
+name: 12b [custom] Action Exercise - actions from other repositories
 description: A workflow calling a custom action with dices throwing exercise
 on:
   workflow_dispatch:
