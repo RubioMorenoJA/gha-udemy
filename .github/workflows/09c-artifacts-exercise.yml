@@ -1,4 +1,4 @@
-name: 09b - Artifacts
+name: 09b - Artifacts exercise
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ on:
       - 'README.md'
   workflow_dispatch:
 jobs:
-    through_dices:
+    throw_dices:
         runs-on: ubuntu-latest
         steps:
             - name: Through Dices
