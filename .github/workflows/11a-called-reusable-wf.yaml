@@ -16,8 +16,8 @@ on:
 jobs:
   tirada:
     outputs:
-      dice1: ${{ steps.throw_dice_1.outputs.result }}
-      dice2: ${{ steps.throw_dice_2.outputs.result }}
+      dice1: ${{ steps.throw_dice_1.outputs.dice }}
+      dice2: ${{ steps.throw_dice_2.outputs.dice }}
     runs-on: ubuntu-latest
     steps:
       - name: Dice Roll Info
@@ -26,9 +26,9 @@ jobs:
       - name: Throw Dice 1
         id: throw_dice_1
         run: |
-          echo "$((1 + $RANDOM % 6))" >> "$GITHUB_OUTPUT"
+          echo "dice=$((1 + $RANDOM % 6))" >> "$GITHUB_OUTPUT"
       - name: Throw Dice 2
         if: ${{ inputs.dice-order == 'two' }}
         id: throw_dice_2
         run: |
-          echo "$((1 + $RANDOM % 6))" >> "$GITHUB_OUTPUT"
+          echo "dice=$((1 + $RANDOM % 6))" >> "$GITHUB_OUTPUT"
