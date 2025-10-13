@@ -1,0 +1,34 @@
+name: 11a[called] Reusable workflow
+on:
+  workflow_call:
+    inputs:
+      dice-order:
+        required: true
+        type: string
+        default: two
+        description: 'Order of the dice to be thrown (one or two)'
+    outputs:
+      dado1:
+        value: ${{ jobs.tirada.outputs.dado1 }}
+      dado2:
+        value: ${{ jobs.tirada.outputs.dado2 }}
+
+jobs:
+  tirada:
+    outputs:
+      dado1: ${{ steps.throw_dice_1.outputs.result }}
+      dado2: ${{ steps.throw_dice_2.outputs.result }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dice Roll Info
+        run: |
+          echo "Rolling ${{ inputs.dice-order }} dice(s)"
+      - name: Throw Dice 1
+        id: throw_dice_1
+        run: |
+          echo $((1 + $RANDOM % 6)) >> "$GITHUB_OUTPUT"
+      - name: Throw Dice 2
+        if: ${{ inputs.dice-order == 'two' }}
+        id: throw_dice_2
+        run: |
+          echo $((1 + $RANDOM % 6)) >> "$GITHUB_OUTPUT"

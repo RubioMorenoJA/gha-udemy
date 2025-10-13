@@ -1,0 +1,22 @@
+name: 11a[calling] Reusable Worflow
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    paths-ignore:
+      - 'README.md'
+
+jobs:
+    call-dice-throwing:
+        uses: ./.github/workflows/11a-called-reusable-wf.yaml
+        with:
+          dice-order: two
+    results:
+        runs-on: ubuntu-latest
+        needs: call-dice-throwing
+        steps:
+            - name: Show results
+              run: |
+                echo "Dice 1 result: ${{ needs.call-dice-throwing.outputs.dado1 }}"
+                echo "Dice 2 result: ${{ needs.call-dice-throwing.outputs.dado2 }}"
