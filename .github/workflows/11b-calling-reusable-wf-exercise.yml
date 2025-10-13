@@ -9,7 +9,7 @@ on:
 
 jobs:
     create-execution-matrix:
-        uses: ./.github/workflows/11b-called-reusable-wf-exercise.yaml
+        uses: ./.github/workflows/11b-called-reusable-wf-exercise.yml
         with:
             node-version: "[16, 18, 20]"
     show-results:
@@ -18,4 +18,4 @@ jobs:
         steps:
             - name: Show results
               run: |
-                echo "Results: ${{ jobs.create-execution-matrix.outputs.results }}"
+                echo "Results: ${{ needs.create-execution-matrix.outputs.results }}"
