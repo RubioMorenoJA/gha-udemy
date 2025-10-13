@@ -7,10 +7,11 @@ inputs:
     default: two
     type: string
 outputs:
-  dice1: ${{ steps.throw_dice_1.outputs.dice }}
-  dice2: ${{ steps.throw_dice_2.outputs.dice }}
+  dice1: ${{ runs.throw_dice_1.outputs.dice }}
+  dice2: ${{ runs.throw_dice_2.outputs.dice }}
 runs:
   using: 'composite'
+  shell: bash
   steps:
     - name: Dice Roll Info
       run: |
