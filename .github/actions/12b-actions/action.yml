@@ -13,16 +13,18 @@ outputs:
     value: ${{ steps.throw_dice_2.outputs.dice }}
 runs:
   using: 'composite'
-  shell: bash
   steps:
     - name: Dice Roll Info
+      shell: bash
       run: |
         echo "Rolling ${{ inputs.dice-order }} dice(s)"
     - name: Throw Dice 1
+      shell: bash
       id: throw_dice_1
       run: |
         echo "dice=$((1 + $RANDOM % 6))" >> "$GITHUB_OUTPUT"
     - name: Throw Dice 2
+      shell: bash
       if: ${{ inputs.dice-order == 'two' }}
       id: throw_dice_2
       run: |
