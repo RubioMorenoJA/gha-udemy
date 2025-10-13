@@ -10,7 +10,7 @@ jobs:
     throw_dices:
         runs-on: ubuntu-latest
         steps:
-            - name: Through Dices
+            - name: Throw Dices
               run: |
                 echo $((1 + $RANDOM % 6)) > dice_1.txt
                 echo $((1 + $RANDOM % 6)) > dice_2.txt
