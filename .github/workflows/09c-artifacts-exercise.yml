@@ -48,5 +48,5 @@ jobs:
             - name: Display Markdown
               run: |
                 echo "Markdown version of the test results:"
-                echo "${{ steps.create_results.outputs.results }}"
+                cat results.md
               
