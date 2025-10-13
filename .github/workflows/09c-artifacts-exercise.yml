@@ -28,6 +28,7 @@ jobs:
                   dice_2.txt
     show_results:
         runs-on: ubuntu-latest
+        needs: throw_dices
         steps:
             - name: Download dice 1 results
               uses: actions/download-artifact@v4
