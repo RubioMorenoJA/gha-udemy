@@ -1,0 +1,52 @@
+name: 09b - Artifacts
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+  workflow_dispatch:
+jobs:
+    through_dices:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Through Dices
+              run: |
+                echo $((1 + $RANDOM % 6)) > dice_1.txt
+                echo $((1 + $RANDOM % 6)) > dice_2.txt
+            - name: Upload dice 1 results
+              uses: actions/upload-artifact@v4
+              with:
+                name: dice_1_results
+                path: |
+                  dice_1.txt
+            - name: Upload dice 2 results
+              uses: actions/upload-artifact@v4
+              with:
+                name: dice_2_results
+                path: |
+                  dice_2.txt
+    show_results:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Download dice 1 results
+              uses: actions/download-artifact@v4
+              with:
+                name: dice_1_results
+            - name: Download dice 2 results
+              uses: actions/download-artifact@v4
+              with:
+                name: dice_2_results
+            - name: Create dice results
+              id: create_results
+              run: |
+                echo "Test results downloaded. You can view them in the artifacts section of the workflow run."
+                ls -l dice_*.txt
+                echo "## Dices results" > results.md
+                echo "- Dice 1: $(cat dice_1.txt)" >> results.md
+                echo "- Dice 2: $(cat dice_2.txt)" >> results.md
+            - name: Display Markdown
+              run: |
+                echo "Markdown version of the test results:"
+                echo "${{ steps.create_results.outputs.results }}"
+              
