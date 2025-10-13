@@ -26,9 +26,9 @@ jobs:
       - name: Throw Dice 1
         id: throw_dice_1
         run: |
-          echo $((1 + $RANDOM % 6)) >> "$GITHUB_OUTPUT"
+          echo "$((1 + $RANDOM % 6))" >> "$GITHUB_OUTPUT"
       - name: Throw Dice 2
         if: ${{ inputs.dice-order == 'two' }}
         id: throw_dice_2
         run: |
-          echo $((1 + $RANDOM % 6)) >> "$GITHUB_OUTPUT"
+          echo "$((1 + $RANDOM % 6))" >> "$GITHUB_OUTPUT"
