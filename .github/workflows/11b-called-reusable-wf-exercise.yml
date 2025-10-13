@@ -37,5 +37,5 @@ jobs:
       - name: Show results
         id: show-results
         run: |
-          echo "Node version: ${{ inputs.node-version }}"
-          echo "result=Node version ${{ inputs.node-version }} executed" >> "$GITHUB_OUTPUT"
+          echo "Node version: ${{ matrix.node-version }}"
+          echo "result=Node version ${{ matrix.node-version }} executed" >> "$GITHUB_OUTPUT"
