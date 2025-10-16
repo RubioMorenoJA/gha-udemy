@@ -7,12 +7,35 @@ on:
     paths-ignore:
       - 'README.md'
 jobs:
-    run-in-container:
-        name: Run job in a container
+    # run-in-container:
+    #     name: Run job in a container
+    #     runs-on: ubuntu-latest
+    #     container: node:16-bullseye
+    #     steps:
+    #       - uses: actions/checkout@v3
+    #       - name: Run node
+    #         run: |
+    #           node script.js
+    run-containers-and-services:
+        name: Run job with service containers
         runs-on: ubuntu-latest
         container: node:16-bullseye
+        services:
+          redis:
+            image: redis
+            options: >-
+              --health-cmd "redis-cli ping"
+              --health-interval 10s
+              --health-timeout 5s
+              --health-retries 5
         steps:
           - uses: actions/checkout@v3
-          - name: Run node
+          - name: Install dependencies
+            run: |
+              npm install
+          - name: connect to redis
+            env:
+              REDIS_HOST: redis
+              REDIS_PORT: 6379
             run: |
               node script.js
