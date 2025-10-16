@@ -1,0 +1,18 @@
+name: 15c Containers and service Containers
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    paths-ignore:
+      - 'README.md'
+jobs:
+    run-in-container:
+        name: Run job in a container
+        runs-on: ubuntu-latest
+        container: node:16-bullseye
+        steps:
+          - uses: actions/checkout@v3
+          - name: Run node
+            run: |
+              node script.js
