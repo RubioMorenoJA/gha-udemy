@@ -62,4 +62,4 @@ jobs:
                 REDIS_HOST: localhost
                 REDIS_PORT: 6379
               run: |
-                node script.js
+                node redis.js
