@@ -16,26 +16,50 @@ jobs:
     #       - name: Run node
     #         run: |
     #           node script.js
-    run-containers-and-services:
-        name: Run job with service containers
+    # run-containers-and-services:
+    #     name: Run job with service containers
+    #     runs-on: ubuntu-latest
+    #     container: node:16-bullseye
+    #     services:
+    #       redis:
+    #         image: redis
+    #         options: >-
+    #           --health-cmd "redis-cli ping"
+    #           --health-interval 10s
+    #           --health-timeout 5s
+    #           --health-retries 5
+    #     steps:
+    #       - uses: actions/checkout@v3
+    #       - name: Install dependencies
+    #         run: |
+    #           npm install
+    #       - name: connect to redis
+    #         env:
+    #           REDIS_HOST: redis
+    #           REDIS_PORT: 6379
+    #         run: |
+    #           node script.js
+    vm-2-container:
+        name: Comunicate between VM and container
         runs-on: ubuntu-latest
-        container: node:16-bullseye
         services:
           redis:
             image: redis
+            ports: 
+              - 6379:6379
             options: >-
               --health-cmd "redis-cli ping"
               --health-interval 10s
               --health-timeout 5s
               --health-retries 5
         steps:
-          - uses: actions/checkout@v3
-          - name: Install dependencies
-            run: |
-              npm install
-          - name: connect to redis
-            env:
-              REDIS_HOST: redis
-              REDIS_PORT: 6379
-            run: |
-              node script.js
+            - uses: actions/checkout@v3
+            - name: Install dependencies
+              run: |
+                npm install
+            - name: connect to redis
+              env:
+                REDIS_HOST: localhost
+                REDIS_PORT: 6379
+              run: |
+                node script.js
