@@ -1,0 +1,21 @@
+name: 15a [calling] Actions from other Dockerfile repositories
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    paths-ignore:
+      - 'README.md'
+jobs:
+  python-greeting:
+    runs-on: ubuntu-latest
+    name: Call other repository action: Dockerfile and python
+    steps:
+      - name: Use Docker
+        id: docker
+        uses: RubioMorenoJA/gha-dockerpy-hello@v1
+        with:
+            name: Popesku
+      - name: Show greeting
+        run: |
+          echo "${{ steps.docker.outputs.greeting }}"
