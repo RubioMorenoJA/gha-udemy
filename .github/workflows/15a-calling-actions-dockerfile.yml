@@ -9,7 +9,7 @@ on:
 jobs:
   python-greeting:
     runs-on: ubuntu-latest
-    name: Call other repository action: Dockerfile and python
+    name: Call other repository action > Dockerfile and python
     steps:
       - name: Use Docker
         id: docker
