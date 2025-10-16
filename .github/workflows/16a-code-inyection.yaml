@@ -13,7 +13,7 @@ jobs:
           title="${{ github.event.issue.title }}"
           echo "${title}"
   avoid-inyection:
-    name: Inyection example - successful hack
+    name: Inyection example - failed hack
     runs-on: ubuntu-latest
     env:
       ISSUE_TITLE: ${{ github.event.issue.title }}
