@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: One dice throwing action from other repository
         id: call_one_dice_action
-        uses: RubioMorenoJA/gha-javascript-dice/.github/actions/14b-javascript-actions@v1
+        uses: RubioMorenoJA/gha-javascript-dice@v1
         with:
             dice-order: one
       - name: Show dice 1 results
@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: Two dice throwing action from other repository
         id: call_two_dice_action
-        uses: RubioMorenoJA/gha-javascript-dice/.github/actions/14b-javascript-actions@v1
+        uses: RubioMorenoJA/gha-javascript-dice@v1
         with:
             dice-order: two
       - name: Show dice 1 results
